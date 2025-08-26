@@ -20,6 +20,9 @@ const App = () => {
   const [gamesList, setGamesList] = useState(null);
   const [gamesListRelease, setGamesListRelease] = useState(null)
 
+
+
+  
   async function getGames() {
     try {
       const response = await fetch(url, options);
