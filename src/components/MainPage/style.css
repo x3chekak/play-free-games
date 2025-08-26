@@ -1,0 +1,37 @@
+.main {
+    width: 100%;
+    height: 100%;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main__description {
+    padding: 40px ;
+}
+
+.main__content {
+    display: flex;
+    gap: 20px;
+}
+
+.trending_games {
+    width: 1140px;
+    padding: 20px;
+}
+
+.main__newreleases {
+    max-width: 1140px;
+
+}
+
+.asdasd {
+    display: flex;
+}
+
+.main__mostplayed {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

@@ -1,0 +1,22 @@
+.main__gamecard_title {
+    background-color: #fa9696;
+    height: 35px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding-left: 10px;
+}
+
+.main__gamecard_img {
+    width: 365px;
+    height: 206px;
+    
+}
+
+.main__gamecard {
+    box-shadow: -3px 3px 10px rgb(168, 93, 93);
+    border-radius: 10px;
+}
+
+.main__gamecard:hover {
+    transform: scale(1.01);
+}
