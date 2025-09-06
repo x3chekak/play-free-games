@@ -1,0 +1,7 @@
+.main_content_gamesPage {
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
