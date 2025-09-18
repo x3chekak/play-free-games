@@ -1,8 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import './style.css'
 
 const GameCard = ({gamesList, index}) => {
+
+    const navigate = useNavigate();
+    const handleClick = () => {
+        console.log(gamesList[index].id);
+        navigate(`/${gamesList[index].id}`)
+    }
+
     return (
-        <div className="main__gamecard">
+        <div onClick={handleClick} className="main__gamecard">
             <div className="main__gamecard_img">
                 <img src={gamesList[index].thumbnail}></img>
             </div>

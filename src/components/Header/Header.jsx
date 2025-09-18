@@ -6,12 +6,19 @@ const Header = () => {
 return (
     <div className="header">
         <div className="header__nav">
-            <div className="header__nav-logo">
-                <NavLink to='/'>LOGO</NavLink>
+            <div className='header__nav_left'>
+                <div className="header__nav_left_logo">
+                    <NavLink to='/'>LOGO</NavLink>
+                </div>
+                <div className="header__nav_left_categoryes-list">
+                    <DropdownButton />
+                </div>
             </div>
-            <div className="header__nav_categoryes-list">
-                <DropdownButton/>
+
+            <div className="header__nav_right">
+                <NavLink to='/search'>Search</NavLink>
             </div>
+
         </div>
     </div>
 )

@@ -28,12 +28,14 @@ const MainPage = ({gamesList, gamesListRelease}) => {
                         <ReleaseGameCard gamesListRelease={gamesListRelease} index={5} />
                     </div>
                 </div>
-                <div className="main__mostplayed">
+                <div>
                     <h1>Мост плэйд</h1>
+                    <div className="main__mostplayed">
                         <GameCard gamesList={gamesList} index={0} />
                         <GameCard gamesList={gamesList} index={1} />
                         <GameCard gamesList={gamesList} index={2} />
                     </div>
+                </div>
             </div>
             </div>
     )

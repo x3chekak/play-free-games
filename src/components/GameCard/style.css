@@ -1,9 +1,13 @@
 .main__gamecard_title {
     background-color: #fa9696;
-    height: 35px;
+    height: 50px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding-left: 10px;
+    display: flex;
+    align-items: center;
+    font-size: large;
+    font-weight: 500;
 }
 
 .main__gamecard_img {
@@ -15,8 +19,11 @@
 .main__gamecard {
     box-shadow: -3px 3px 10px rgb(168, 93, 93);
     border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
 .main__gamecard:hover {
     transform: scale(1.01);
+    
 }
