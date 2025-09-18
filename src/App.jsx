@@ -3,7 +3,9 @@ import './App.css'
 import Header from './components/Header/Header'
 import MainPage from './components/MainPage/MainPage'
 import GamesPage from './components/GamesPage/GamesPage'
+import GameInfo from './components/GameInfo/GameInfo'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import GameSearch from './components/GameSearch/GameSearch'
 
 const url = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=polularity';
 const urlRelease = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=release-date';
@@ -56,7 +58,9 @@ if (gamesList && gamesListRelease) {
         <Header />
         <Routes>
           <Route path='/' element={<MainPage gamesList={gamesList} gamesListRelease={gamesListRelease}/>} />
-          <Route path='/games' element={<GamesPage gamesList={gamesList} />} />
+          <Route path='/games/:genre' element={<GamesPage gamesList={gamesList} />} />
+          <Route path='/:id?' element={<GameInfo />} />
+          <Route path='/search' element={<GameSearch gamesList={gamesList} />} />
         </Routes>
       </BrowserRouter>
     )

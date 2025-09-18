@@ -5,6 +5,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 1135px;
+    margin: auto;
 }
 
 .main__description {
@@ -17,21 +19,25 @@
 }
 
 .trending_games {
-    width: 1140px;
-    padding: 20px;
-}
-
-.main__newreleases {
-    max-width: 1140px;
+    width: 1135px;
 
 }
+
+.main__releasegames {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 
 .asdasd {
     display: flex;
+    width: 1135px;
+    gap: 20px;
 }
 
 .main__mostplayed {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
