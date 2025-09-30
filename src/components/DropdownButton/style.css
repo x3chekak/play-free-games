@@ -1,0 +1,30 @@
+.header_dropdown {
+    position: absolute;
+    width: 150px;
+    top: 100%;
+    left: 0;
+    margin-top: 18px;
+    padding: 5px 0;
+    list-style: none;
+    background-color: #fa9696;
+    border: 1px solid #fda7a7;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.header_category {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.header_dropdown_item {
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+
+.header_dropdown_item:hover {
+    background-color: #fda7a7;
+    padding-left: 13px;
+}

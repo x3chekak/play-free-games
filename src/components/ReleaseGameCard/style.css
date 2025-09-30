@@ -1,11 +1,13 @@
 .main__releasegames_card {
     display: flex;
     background-color: #fa9696;
-    gap: 10px;
+    gap: 20px;
     padding: 10px;
     border-radius: 5px;
-    width: 750px;
+    width: 100%;
     box-shadow: -3px 3px 10px rgb(168, 93, 93);
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
 .main__releasegames_card:hover {
@@ -19,18 +21,31 @@
 
 .main__releasegames_card-img img {
     object-fit: cover;
-        width: 100%;
-        height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .main__releasegames_card-info {
     display: flex;
     flex-direction: column;
+    gap: 5px;
+    max-width: 50%;
 }
 
 .main__releasegames_card-info_description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+.main__releasegames_card-info_category {
+    border-radius: 7px;
+    background-color: #fbb3b3;
+    padding: 0 5px ;
+    align-self: flex-start;
+    font-size: small;
+}
+
+.main__releasegames_card-info_description {
+    color: #ffcccc;
 }
