@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'
+import { ArrowDownIcon } from '../../assets/icons/arrow-down-icon';
+import './style.css'
 
 function DropdownButton() {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
+    const containerRef = useRef(null)
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -21,30 +24,30 @@ function DropdownButton() {
                     'Social', 'Sports'
                     ];
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (containerRef.current && !containerRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+
+    }, []);
+
     return (
-        <div style={{ position: 'relative', display: 'inline-block' }}>
-            <a onClick={toggleDropdown}>
-                CATEGORY
-            </a>
+        <div className='header_category' ref={containerRef}>
+            <div className='transform' onClick={toggleDropdown}>
+                Games List <ArrowDownIcon/>
+            </div>
             {isOpen && (
-                <ul
-                    style={{
-                        position: 'absolute',
-                        width: '150px',
-                        top: '100%',
-                        left: 0,
-                        marginTop: '18px',
-                        padding: '10px',
-                        listStyle: 'none',
-                        backgroundColor: '#fa9696',
-                        border: '1px solid #ffcccc',
-                        borderRadius: '5px',
-                        
-                        zIndex: 1,
-                    }}
-                >
+                <ul className='header_dropdown'>
                     {options.map((option, index) => (
-                        <li key={index} style={{ cursor: 'pointer' }} onClick={() => handleOptionClick(option)}>
+                        <li key={index} className='header_dropdown_item' onClick={() => handleOptionClick(option)}>
                             <NavLink to={'/' + option}>{option}</NavLink>
                         </li>
                     ))}

@@ -10,6 +10,9 @@
 
 }
 
+a {
+  all: unset;
+}
 
 button {
   border-radius: 8px;
@@ -41,3 +44,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+

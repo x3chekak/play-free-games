@@ -2,6 +2,7 @@ import './style.css'
 import GameCard from '../GameCard/GameCard'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import FetchError from '../FetchError/FetchError';
 
 let url = `https://free-to-play-games-database.p.rapidapi.com/api/games?category=`;
 const options = {
@@ -18,6 +19,7 @@ const GamesPage = () => {
 
     const [visibleCount, setVisibleCount] = useState(12);
     const [gamesList, setGamesList] = useState(null);
+    const [errorGames, setErrorGames] = useState(false);
 
     const handleScroll = () => {
         
@@ -40,6 +42,7 @@ const GamesPage = () => {
             setGamesList(result)
             console.log(result)
         } catch (error) {
+            setErrorGames(!errorGames)
             console.error(error);
         }
     }
@@ -61,19 +64,24 @@ const GamesPage = () => {
 
     if (gamesList) {
         return (
-            <div className="main"
-            >
+            <div className="main">
                 <div className="main__description">
-                    <h1>Открой для себя мир бесплатных игр</h1>
+                    <h1>Discover the best free-to-play games</h1>
                 </div>
-                <h1>Игры в жанре {genre}</h1>
+                <h2>Top Free {genre} Games</h2>
                 <div className='main_content_gamesPage'>
                     
-                    {gamesList.slice(0, visibleCount).map((card, index) => (
-                        <GameCard gamesList={gamesList} index={index} key={index} />
+                    {gamesList.slice(0, visibleCount).map((game, index) => (
+                        <GameCard game={game} key={index} />
                     ))}
                 </div>
             </div>
+        )
+    }
+    
+    if (errorGames) {
+        return (
+            <FetchError />
         )
     }
 }

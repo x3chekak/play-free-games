@@ -1,20 +1,28 @@
 import './style.css'
+import { useNavigate } from 'react-router-dom';
 
-const ReleaseGameCard = ({ gamesListRelease, index }) => {
+const ReleaseGameCard = ({ game }) => {
+
+    const navigate = useNavigate();
+    const handleClick = () => {
+        console.log(game.id);
+        navigate(`/${game.id}`)
+    }
+
     return (
-        <div className="main__releasegames_card">
+        <div onClick={handleClick} className="main__releasegames_card">
             <div className="main__releasegames_card-img">
-                <img src={gamesListRelease[index].thumbnail}></img>
+                <img src={game.thumbnail}></img>
             </div>
             <div className="main__releasegames_card-info">
                 <div className="main__releasegames_card-info_title">
-                    {gamesListRelease[index].title}
+                    <h3>{game.title}</h3>
                 </div>
                 <div className="main__releasegames_card-info_description">
-                    {gamesListRelease[index].short_description}
+                    <p>{game.short_description}</p>
                 </div>
                 <div className="main__releasegames_card-info_category">
-                    {gamesListRelease[index].genre}
+                    <span>{game.genre}</span>
                 </div>
             </div>
         </div>

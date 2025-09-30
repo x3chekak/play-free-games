@@ -6,34 +6,31 @@ const MainPage = ({gamesList, gamesListRelease}) => {
     return (
         <div className="main">
             <div className="main__description">
-                <h1>Открой для себя мир бесплатных игр</h1>
+                <h1>Discover the best free-to-play games</h1>
             </div>
             <div className="trending_games">
-                <h1>Популярные сейчас</h1>
+                <h2>Trending Games</h2>
                 <div className="main__content">
-               <GameCard gamesList={gamesList} index={0} />
-                <GameCard gamesList={gamesList} index={1} />
-                <GameCard gamesList={gamesList} index={2} />
+                { gamesList.slice(0,3).map((game,index) => (
+                  <GameCard game={game} key={index}/>  
+                ))}
                 </div>
             </div>
             <div className='asdasd'>
                 <div className="main__newreleases">
-                    <h1>Новые релизы</h1>
+                    <h2>New Releases</h2>
                     <div className="main__releasegames">
-                        <ReleaseGameCard gamesListRelease={gamesListRelease} index={0}/>
-                        <ReleaseGameCard gamesListRelease={gamesListRelease} index={1} />
-                        <ReleaseGameCard gamesListRelease={gamesListRelease} index={2} />
-                        <ReleaseGameCard gamesListRelease={gamesListRelease} index={3} />
-                        <ReleaseGameCard gamesListRelease={gamesListRelease} index={4} />
-                        <ReleaseGameCard gamesListRelease={gamesListRelease} index={5} />
+                        {gamesListRelease.slice(0, 6).map((game, index) => (
+                            <ReleaseGameCard game={game} key={index} />
+                        ))}
                     </div>
                 </div>
-                <div>
-                    <h1>Мост плэйд</h1>
+                <div className='qweqweqwe'>
+                    <h2>Most Played</h2>
                     <div className="main__mostplayed">
-                        <GameCard gamesList={gamesList} index={0} />
-                        <GameCard gamesList={gamesList} index={1} />
-                        <GameCard gamesList={gamesList} index={2} />
+                        {gamesList.slice(0, 3).map((game, index) => (
+                            <GameCard game={game} key={index} />
+                        ))}
                     </div>
                 </div>
             </div>

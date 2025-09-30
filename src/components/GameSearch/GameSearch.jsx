@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import './style.css'
 import GameCard from '../GameCard/GameCard';
 
@@ -6,41 +6,43 @@ import GameCard from '../GameCard/GameCard';
 function GameSearch({gamesList}) {
 
     const [query, setQuery] = useState('');
-    const [filteredGames, setFilteredGames] = useState(gamesList);
-    const debounceTimeout = useRef(null);
+    const [filteredGames, setFilteredGames] = useState([]);
 
-    const handleInputChange = (e) => {
-        const value = e.target.value;
-        setQuery(value);
+    useEffect(() => {
+        // Создаём таймер дебаунса
+        const handler = setTimeout(() => {
+            if (query.trim() === '') {
+                setFilteredGames(gamesList);
+            } else {
+                const filtered = gamesList.filter(game =>
+                    game.title.toLowerCase().includes(query.toLowerCase())
+                );
+                setFilteredGames(filtered);
+            }
+        }, 500);
 
-        if (debounceTimeout.current) {
-            clearTimeout(debounceTimeout.current);
-        }
-
-        debounceTimeout.current = setTimeout(() => {
-            // Поиск игр, которые содержат введённый текст без учёта регистра
-            const filtered = gamesList.filter(game =>
-                game.title.toLowerCase().includes(value.toLowerCase())
-            );
-            setFilteredGames(filtered);
-        }, 300); // задержка 300мс
-    };
+        // Очистка таймера при изменении query или unmount
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [query, gamesList]);
 
     return (
         <div className='main'>
-            <div >
-                <h1>Найти игру</h1>
-            </div>
+            <div className='weqweqeqwe'>
+                <h1>Find game</h1>
+            
             <input
                 className='search_input'
                 type="text"
-                placeholder="Введите название игры"
+                placeholder="Search for games"
                 value={query}
-                onChange={handleInputChange}
+                onChange={(e) => setQuery(e.target.value)}
             />
-            <div className='main_content_gamesPage'>
-                {query && filteredGames.map((game,index) => (
-                    <GameCard gamesList={filteredGames} index={index} key={index} />
+            </div>
+            <div className='main__content'>
+                {filteredGames.map((game,index) => (
+                    <GameCard game={game} key={index} />
                 ))}
             </div>
         </div>

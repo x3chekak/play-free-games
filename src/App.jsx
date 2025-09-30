@@ -1,11 +1,12 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Header from './components/Header/Header'
 import MainPage from './components/MainPage/MainPage'
 import GamesPage from './components/GamesPage/GamesPage'
 import GameInfo from './components/GameInfo/GameInfo'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import GameSearch from './components/GameSearch/GameSearch'
+import FetchError from './components/FetchError/FetchError'
 
 const url = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=polularity';
 const urlRelease = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=release-date';
@@ -21,10 +22,8 @@ const App = () => {
 
   const [gamesList, setGamesList] = useState(null);
   const [gamesListRelease, setGamesListRelease] = useState(null)
+  const [errorGames, setErrorGames] = useState(false);
 
-
-
-  
   async function getGames() {
     try {
       const response = await fetch(url, options);
@@ -32,6 +31,7 @@ const App = () => {
       setGamesList(result)
       console.log(result)
     } catch (error) {
+      setErrorGames(!errorGames);
       console.error(error);
     }
   }
@@ -43,21 +43,23 @@ const App = () => {
       setGamesListRelease(result)
       console.log(result)
     } catch (error) {
+      setErrorGames(!errorGames);
       console.error(error);
     }
   }
-  
+
   useEffect(() => {
     getGames()
     getGamesSortedByRelease()
-  },[])
+  }, [])
 
-if (gamesList && gamesListRelease) {
+
+  if (gamesList && gamesListRelease) {
     return (
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path='/' element={<MainPage gamesList={gamesList} gamesListRelease={gamesListRelease}/>} />
+          <Route path='/' element={<MainPage gamesList={gamesList} gamesListRelease={gamesListRelease} />} />
           <Route path='/games/:genre' element={<GamesPage gamesList={gamesList} />} />
           <Route path='/:id?' element={<GameInfo />} />
           <Route path='/search' element={<GameSearch gamesList={gamesList} />} />
@@ -65,7 +67,16 @@ if (gamesList && gamesListRelease) {
       </BrowserRouter>
     )
   }
-
+  
+  if (errorGames){
+    return (
+      <BrowserRouter>
+        <Header />
+        <FetchError />
+  
+      </BrowserRouter>
+    )
+  }
 }
 
 export default App

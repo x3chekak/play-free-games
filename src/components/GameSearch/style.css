@@ -3,7 +3,7 @@
 }
 
 .search_input {
-    width: 300px;
+    width: 250px;
     height: 40px;
     padding-left: 10px;
     border-radius: 5px;
@@ -18,9 +18,14 @@
 }
 
 .search_input::placeholder {
-    color: #fa9696;
+    color: #ffcccc;
 }
 
 .search_input:focus {
     border-color: white;
+}
+
+.weqweqeqwe {
+    width: 100%;
+    margin-top: 20px;
 }
