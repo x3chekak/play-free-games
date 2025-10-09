@@ -56,7 +56,7 @@ const App = () => {
 
   if (gamesList && gamesListRelease) {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename='/play-free-games'>
         <Header />
         <Routes>
           <Route path='/' element={<MainPage gamesList={gamesList} gamesListRelease={gamesListRelease} />} />
