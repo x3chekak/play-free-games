@@ -1,11 +1,12 @@
 import './style.css'
-import GameCard from '../GameCard/GameCard'
+import GameCard from '../GameCard/GameCard.tsx'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import FetchError from '../FetchError/FetchError';
+import { FetchError } from '../FetchError/FetchError.tsx';
+import type { GameType } from '../../types.ts';
 
-let url = `https://free-to-play-games-database.p.rapidapi.com/api/games?category=`;
-const options = {
+let url: string = `https://free-to-play-games-database.p.rapidapi.com/api/games?category=`;
+const options: RequestInit = {
     method: 'GET',
     headers: {
         'x-rapidapi-key': '86d52b514dmsh56034273078d113p103c37jsnb29047083b2d',
@@ -13,21 +14,19 @@ const options = {
     }
 };
 
+const GamesPage: React.FC = () => {
 
-
-const GamesPage = () => {
-
-    const [visibleCount, setVisibleCount] = useState(12);
-    const [gamesList, setGamesList] = useState(null);
-    const [errorGames, setErrorGames] = useState(false);
+    const [visibleCount, setVisibleCount] = useState<number>(12);
+    const [gamesList, setGamesList] = useState<GameType[] | null>(null);
+    const [errorGames, setErrorGames] = useState<boolean>(false);
 
     const handleScroll = () => {
-        
+
         const scrollTop = window.scrollY || window.pageYOffset;
         const windowHeight = window.innerHeight;
         const docHeight = document.documentElement.scrollHeight;
 
-        if (scrollTop + windowHeight >= docHeight - 10) {
+        if (scrollTop + windowHeight >= docHeight - 10 && gamesList) {
             console.log('Доскроллили до низа окна');
             setVisibleCount(prev => Math.min(prev + 12, gamesList.length));
         }
@@ -35,7 +34,7 @@ const GamesPage = () => {
 
     const { genre } = useParams();
 
-    async function getGames(genre) {
+    async function getGames(genre: string): Promise<void> {
         try {
             const response = await fetch((url + genre), options);
             const result = await response.json();
@@ -48,10 +47,11 @@ const GamesPage = () => {
     }
 
     useEffect(() => {
+        if (genre) {
         window.scrollTo(0, 0);
         setVisibleCount(12);
-        
         getGames(genre)
+        }
     }, [genre])
 
     useEffect(() => {
@@ -70,7 +70,7 @@ const GamesPage = () => {
                 </div>
                 <h2>Top Free {genre} Games</h2>
                 <div className='main_content_gamesPage'>
-                    
+
                     {gamesList.slice(0, visibleCount).map((game, index) => (
                         <GameCard game={game} key={index} />
                     ))}
@@ -78,7 +78,7 @@ const GamesPage = () => {
             </div>
         )
     }
-    
+
     if (errorGames) {
         return (
             <FetchError />

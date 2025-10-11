@@ -1,8 +1,9 @@
 import './style.css'
-import GameCard from '../GameCard/GameCard'
-import ReleaseGameCard from '../ReleaseGameCard/ReleaseGameCard'
+import GameCard from '../GameCard/GameCard.tsx'
+import ReleaseGameCard from '../ReleaseGameCard/ReleaseGameCard.tsx'
+import type { GameType } from '../../types.ts'
 
-const MainPage = ({gamesList, gamesListRelease}) => {
+const MainPage: React.FC<{ gamesList: GameType[], gamesListRelease: GameType[] }> = ({ gamesList, gamesListRelease }) => {
     return (
         <div className="main">
             <div className="main__description">
@@ -11,9 +12,9 @@ const MainPage = ({gamesList, gamesListRelease}) => {
             <div className="trending_games">
                 <h2>Trending Games</h2>
                 <div className="main__content">
-                { gamesList.slice(0,3).map((game,index) => (
-                  <GameCard game={game} key={index}/>  
-                ))}
+                    {gamesList.slice(0, 3).map((game, index) => (
+                        <GameCard game={game} key={index} />
+                    ))}
                 </div>
             </div>
             <div className='asdasd'>
@@ -34,9 +35,8 @@ const MainPage = ({gamesList, gamesListRelease}) => {
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     )
 }
-
 
 export default MainPage

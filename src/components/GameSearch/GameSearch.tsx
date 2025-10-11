@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from 'react';
 import './style.css'
-import GameCard from '../GameCard/GameCard';
+import GameCard from '../GameCard/GameCard.tsx';
+import type { GameType } from '../../types.ts';
 
 
-function GameSearch({gamesList}) {
+const GameSearch: React.FC<{gamesList: GameType[]}> = ({ gamesList }) => {
 
-    const [query, setQuery] = useState('');
-    const [filteredGames, setFilteredGames] = useState([]);
+    const [query, setQuery] = useState<string>('');
+    const [filteredGames, setFilteredGames] = useState<GameType[]>([]);
 
     useEffect(() => {
         // Создаём таймер дебаунса
@@ -31,17 +32,17 @@ function GameSearch({gamesList}) {
         <div className='main'>
             <div className='weqweqeqwe'>
                 <h1>Find game</h1>
-            
-            <input
-                className='search_input'
-                type="text"
-                placeholder="Search for games"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-            />
+
+                <input
+                    className='search_input'
+                    type="text"
+                    placeholder="Search for games"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
             </div>
             <div className='main__content'>
-                {filteredGames.map((game,index) => (
+                {filteredGames.map((game, index) => (
                     <GameCard game={game} key={index} />
                 ))}
             </div>

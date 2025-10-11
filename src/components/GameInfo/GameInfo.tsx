@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import './style.css'
-import FetchError from "../FetchError/FetchError";
+import { FetchError } from "../FetchError/FetchError.tsx";
+import type { GameInfoType, ScreenshotsType } from "../../types.ts";
 
 
-let url = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=`;
-const options = {
+let url: string = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=`;
+const options: RequestInit = {
     method: 'GET',
     headers: {
         'x-rapidapi-key': '86d52b514dmsh56034273078d113p103c37jsnb29047083b2d',
@@ -13,17 +14,19 @@ const options = {
     }
 };
 
-const GameInfo = () => {
 
-    const [gameInfo, setGameInfo] = useState(null);
-    const [errorGames, setErrorGames] = useState(false);
+
+const GameInfo: React.FC = () => {
+
+    const [gameInfo, setGameInfo] = useState<GameInfoType | null>(null);
+    const [errorGames, setErrorGames] = useState<boolean>(false);
 
     const { id } = useParams();
 
-    async function getGameInfo(id) {
+    async function getGameInfo(id: string): Promise<void> {
         try {
             const response = await fetch((url + id), options);
-            const result = await response.json();
+            const result: GameInfoType = await response.json();
             setGameInfo(result)
             console.log(result)
         } catch (error) {
@@ -33,10 +36,10 @@ const GameInfo = () => {
     }
 
     //--------------------modal-------------------------
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [currentImage, setCurrentImage] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [currentImage, setCurrentImage] = useState<string>('');
 
-    const handleImageClick = (src) => {
+    const handleImageClick = (src: string) => {
         setCurrentImage(src);
         setIsModalOpen(true);
     };
@@ -47,7 +50,9 @@ const GameInfo = () => {
     //---------------------------------------------------
 
     useEffect(() => {
+        if (id) {
         getGameInfo(id);
+        }
     }, [id]);
 
     if (gameInfo) {
@@ -105,9 +110,9 @@ const GameInfo = () => {
                         </div>
                         <h2>{gameInfo.title} Screenshots</h2><br></br>
                         <div className="game-info_main_right-block_screenshots">
-                            {gameInfo.screenshots.map((item, index) => (
-                                <div className="game-info_main_right-block_screenshots_item" key={index} onClick={() => handleImageClick(item.image) }>
-                                <img src={item.image} ></img>
+                            {gameInfo.screenshots.map((item: ScreenshotsType, index: number) => (
+                                <div className="game-info_main_right-block_screenshots_item" key={index} onClick={() => handleImageClick(item.image)}>
+                                    <img src={item.image} ></img>
                                 </div>
                             ))}
 
@@ -166,7 +171,7 @@ const GameInfo = () => {
             </div>
         )
     }
-    
+
     if (errorGames) {
         return (
             <div className="main">

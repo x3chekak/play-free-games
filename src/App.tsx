@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import Header from './components/Header/Header'
-import MainPage from './components/MainPage/MainPage'
-import GamesPage from './components/GamesPage/GamesPage'
-import GameInfo from './components/GameInfo/GameInfo'
+import Header from './components/Header/Header.js'
+import MainPage from './components/MainPage/MainPage.js'
+import GamesPage from './components/GamesPage/GamesPage.js'
+import GameInfo from './components/GameInfo/GameInfo.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import GameSearch from './components/GameSearch/GameSearch'
-import FetchError from './components/FetchError/FetchError'
+import GameSearch from './components/GameSearch/GameSearch.js'
+import {FetchError} from './components/FetchError/FetchError.tsx'
+import type { GameType } from './types.js'
 
-const url = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=polularity';
-const urlRelease = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=release-date';
-const options = {
+const url: string = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=polularity';
+const urlRelease: string = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=release-date';
+const options: RequestInit = {
   method: 'GET',
   headers: {
     'x-rapidapi-key': '86d52b514dmsh56034273078d113p103c37jsnb29047083b2d',
@@ -18,16 +19,16 @@ const options = {
   }
 };
 
-const App = () => {
+const App: React.FC = () => {
 
-  const [gamesList, setGamesList] = useState(null);
-  const [gamesListRelease, setGamesListRelease] = useState(null)
-  const [errorGames, setErrorGames] = useState(false);
+  const [gamesList, setGamesList] = useState<GameType[] | null>(null);
+  const [gamesListRelease, setGamesListRelease] = useState<GameType[] | null>(null)
+  const [errorGames, setErrorGames] = useState<boolean>(false);
 
-  async function getGames() {
+  async function getGames(): Promise<void> {
     try {
       const response = await fetch(url, options);
-      const result = await response.json();
+      const result: GameType[] = await response.json();
       setGamesList(result)
       console.log(result)
     } catch (error) {
@@ -36,10 +37,10 @@ const App = () => {
     }
   }
 
-  async function getGamesSortedByRelease() {
+  async function getGamesSortedByRelease(): Promise<void> {
     try {
       const response = await fetch(urlRelease, options);
-      const result = await response.json();
+      const result: GameType[] = await response.json();
       setGamesListRelease(result)
       console.log(result)
     } catch (error) {
@@ -60,20 +61,20 @@ const App = () => {
         <Header />
         <Routes>
           <Route path='/' element={<MainPage gamesList={gamesList} gamesListRelease={gamesListRelease} />} />
-          <Route path='/games/:genre' element={<GamesPage gamesList={gamesList} />} />
+          <Route path='/games/:genre' element={<GamesPage />} />
           <Route path='/:id?' element={<GameInfo />} />
           <Route path='/search' element={<GameSearch gamesList={gamesList} />} />
         </Routes>
       </BrowserRouter>
     )
   }
-  
-  if (errorGames){
+
+  if (errorGames) {
     return (
       <BrowserRouter>
         <Header />
         <FetchError />
-  
+
       </BrowserRouter>
     )
   }

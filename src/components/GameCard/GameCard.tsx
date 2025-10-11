@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import './style.css'
+import './style.css';
+import type { GameType } from '../../types.ts';
 
-const GameCard = ({game}) => {
+const GameCard: React.FC<{game: GameType}> = ({ game }) => {
 
     const navigate = useNavigate();
     const handleClick = () => {

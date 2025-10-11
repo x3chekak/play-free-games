@@ -1,6 +1,6 @@
 import './style.css'
 
-const FetchError = () => {
+export const FetchError: React.FC = () => {
 
     return (
         <div className='main'>
@@ -12,4 +12,3 @@ const FetchError = () => {
     );
 }
 
-export default FetchError

@@ -1,32 +1,34 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ArrowDownIcon } from '../../assets/icons/arrow-down-icon';
+import { ArrowDownIcon } from '../../assets/icons/arrow-down-icon.tsx';
 import './style.css'
 
-function DropdownButton() {
-    const [isOpen, setIsOpen] = useState(false);
+const DropdownButton: React.FC = () => {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const navigate = useNavigate();
-    const containerRef = useRef(null)
+    const containerRef = useRef<HTMLDivElement>(null)
 
-    const toggleDropdown = () => {
+    const toggleDropdown = (): void => {
         setIsOpen(!isOpen);
     };
 
-    const handleOptionClick = (option) => {
+    const handleOptionClick = (option: string): void => {
         setIsOpen(false);
         navigate(`/games/${option}`)
     };
 
-    const options = [
-                    'MMORPG', 'Shooter', 'MOBA', 'Anime', 
-                    'Strategy', 'Fantasy','Sci-Fi', 'Battle-Royale',
-                    'Card', 'Racing', 'Fighting',
-                    'Social', 'Sports'
-                    ];
+    const options: string[] = [
+        'MMORPG', 'Shooter', 'MOBA', 'Anime',
+        'Strategy', 'Fantasy', 'Sci-Fi', 'Battle-Royale',
+        'Card', 'Racing', 'Fighting',
+        'Social', 'Sports'
+    ];
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (containerRef.current && !containerRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (containerRef.current &&
+                event.target instanceof Node &&
+                !containerRef.current.contains(event.target)) {
                 setIsOpen(false);
             }
         };
@@ -42,7 +44,7 @@ function DropdownButton() {
     return (
         <div className='header_category' ref={containerRef}>
             <div className='transform' onClick={toggleDropdown}>
-                Games List <ArrowDownIcon/>
+                Games List <ArrowDownIcon />
             </div>
             {isOpen && (
                 <ul className='header_dropdown'>
